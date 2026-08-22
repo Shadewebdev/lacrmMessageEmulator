@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WhatsApp Webhook Simulator</title>
+    <style>
+      body { font-family: system-ui, sans-serif; max-width: 600px; margin: 40px auto; padding: 0 20px; }
+      .field { margin-bottom: 15px; }
+      label { display: block; margin-bottom: 5px; font-weight: bold; }
+      input, textarea { width: 100%; padding: 8px; box-sizing: border-box; }
+      button { padding: 10px 15px; background: #008069; color: white; border: none; cursor: pointer; }
+      #logs { background: #111; color: #00ff66; padding: 15px; font-family: monospace; height: 150px; overflow-y: auto; margin-top: 20px; }
+    </style>
+  </head>
+  <body>
+    <h2>WhatsApp Webhook Simulator</h2>
+    
+    <div class="field">
+      <label for="phone">Sender Phone Number:</label>
+      <input type="text" id="phone" value="1234567890" />
+    </div>
+
+    <div class="field">
+      <label for="message">Incoming Message Body:</label>
+      <textarea id="message" rows="3">Hello from local simulation!</textarea>
+    </div>
+
+    <button id="send-btn">Dispatch Fake Meta Payload</button>
+
+    <h3>Event Log</h3>
+    <div id="logs">Waiting for events...</div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
