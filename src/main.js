@@ -43,22 +43,33 @@ function buildMetaPayload(senderPhone, messageText) {
 document.getElementById("send-btn").addEventListener("click", async () => {
   const phone = document.getElementById("phone").value.trim();
   const message = document.getElementById("message").value.trim();
-
-  if (!message) return alert("Please enter a message!");
-
   const payload = buildMetaPayload(phone, message);
-  appendLog(`Sending POST request to /webhook...`);
 
   try {
+    // Browser sends request to Vite (port 5173).
+    // Vite proxies it under the hood to Firebase Emulator (port 5001).
     const res = await fetch("/webhook", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload)
     });
 
+    // To be fixed
+
     const text = await res.text();
-    appendLog(`Response (${res.status}): ${text}`);
+    // Parse the text as JSON since Firebase Cloud Function returns a structured log/object
+    const jsonResponse = JSON.parse(text);
+
+    // Extract the nested 'message' string and parse it as JSON if it's stringified
+    const messageData = JSON.parse(jsonResponse.message);
+
+    // The actual text body inside the WhatsApp payload
+    const responseBody = messageData.text.body;
+
+    appendLog(`${res.url}: ${responseBody}`);
+    // appendLog(body);
+    console.log("Firebase Emulator Response:", text);
   } catch (err) {
-    appendLog(`Error: ${err.message}`);
+    console.error("Error:", err);
   }
 });
