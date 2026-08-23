@@ -70,7 +70,7 @@ document.getElementById("send-btn").addEventListener("click", async () => {
 
     appendLog(`${res.url}: ${responseBody}`);
     // appendLog(body);
-    console.log("Firebase Emulator Response:", text);
+    // console.log("Firebase Emulator Response:", text);
   } catch (err) {
     console.error("Error:", err);
   }
