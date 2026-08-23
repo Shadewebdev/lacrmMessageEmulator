@@ -57,11 +57,13 @@ document.getElementById("send-btn").addEventListener("click", async () => {
     // To be fixed
 
     const text = await res.text();
+    console.log("HTTP Status: ", res.status);
+    console.log("Raw Response", text);
     // Parse the text as JSON since Firebase Cloud Function returns a structured log/object
     const jsonResponse = JSON.parse(text);
 
     // Extract the nested 'message' string and parse it as JSON if it's stringified
-    const messageData = JSON.parse(jsonResponse.message);
+    const messageData = JSON.parse(jsonResponse.payload);
 
     // The actual text body inside the WhatsApp payload
     const responseBody = messageData.text.body;
